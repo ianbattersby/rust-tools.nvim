@@ -161,7 +161,11 @@ local function setup_capabilities()
 end
 
 local function setup_lsp()
-  lspconfig.rust_analyzer.setup(rt.config.options.server)
+  lspconfig["rust_analyzer"] = vim.tbl_deep_extend(
+    "force",
+    lspconfig["rust_analyzer"] or {},
+    rt.config.options.server
+  )
 end
 
 local function get_root_dir(filename)
